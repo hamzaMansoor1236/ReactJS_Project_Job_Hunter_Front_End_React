@@ -10,6 +10,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Components/Home/Home";
 //importing <NotFound/> component
 import NotFound from "./Components/Not Found/NotFound";
+import UserLogin from "./Components/Login/UserLogin";
+import UserDashboard from "./Components/Dashboard/UserDashboard/UserDashBoard";
 
 //root element of the application
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -19,6 +21,10 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
+        <Route path="/UserLogin" element={<UserLogin></UserLogin>}></Route>
+        <Route path="/UserDashboard" element={<UserDashboard></UserDashboard>}></Route>
+        
+
         <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>
     </BrowserRouter>
