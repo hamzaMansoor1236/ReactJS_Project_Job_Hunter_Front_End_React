@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import "./UserLogin.css"
+import "./UserLogin.css";
 
 function UserLogin() {
   //array to fetch all the users
@@ -61,6 +61,7 @@ function UserLogin() {
           console.log("User Match");
           setSubmit(true);
           userFound = true;
+          localStorage.setItem("user", usersArr[i].user_name);
           break;
         }
       }
@@ -144,10 +145,15 @@ function UserLogin() {
           />
         </div>
         <br></br>
-        <button type="submit" className="btn btn-primary custom">
+        <button type="submit" className="btn btn-outline-primary custom">
           Login
         </button>
-        <button type="submit" className="btn btn-primary custom mx-5">
+        <button
+          className="btn btn-outline-primary custom  mx-4"
+          onClick={() => {
+            navigate("/usersignup");
+          }}
+        >
           Sign up
         </button>
         <br></br>

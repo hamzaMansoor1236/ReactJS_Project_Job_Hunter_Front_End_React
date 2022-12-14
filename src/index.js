@@ -14,6 +14,8 @@ import UserLogin from "./Components/Login/UserLogin";
 import UserDashboard from "./Components/Dashboard/UserDashboard/UserDashBoard";
 import HrLogin from "./Components/Login/HrLogin";
 import HRDashboard from "./Components/Dashboard/HrDashboard/HrDashboard";
+import UserSignUp from "./Components/SignUp/UserSignUp";
+import HRSignUp from "./Components/SignUp/HrSignUp";
 
 //root element of the application
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -22,19 +24,30 @@ root.render(
     {/* Routes of the application  */}
     <BrowserRouter>
       <Routes>
-        {/* User Routes */}
+        {/* Home route */}
         <Route path="/" element={<Home></Home>}></Route>
+        {/* ////////////////////////////////////////////// */}
+        {/* User Routes */}
+        <Route path="/UserSignUp" element={<UserSignUp></UserSignUp>}></Route>
         <Route path="/UserLogin" element={<UserLogin></UserLogin>}></Route>
-        <Route path="/UserDashboard" element={<UserDashboard></UserDashboard>}></Route>
-        
+        <Route
+          path="/UserDashboard"
+          element={<UserDashboard></UserDashboard>}
+        ></Route>
+        {/* /////////////////////////////////////////////// */}
         {/* HR routes */}
         <Route path="/HRLogin" element={<HrLogin></HrLogin>}></Route>
-        <Route path="/HRDashboard" element={<HRDashboard></HRDashboard>}></Route>
+        <Route path="/HRsignup" element={<HRSignUp></HRSignUp>}></Route>
 
-        
+        <Route
+          path="/HRDashboard"
+          element={<HRDashboard></HRDashboard>}
+        ></Route>
+        {/* //////////////////////////////////////////////// */}
 
         {/* Not found Route */}
         <Route path="*" element={<NotFound></NotFound>}></Route>
+        {/* //////////////////////////////////////////////// */}
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

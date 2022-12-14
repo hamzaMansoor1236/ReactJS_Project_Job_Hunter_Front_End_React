@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import "./HrLogin.css"
+import "./HrLogin.css";
 function HrLogin() {
   //array to fetch all the Hr's data
   var [hrArr, setHrArr] = useState([]);
@@ -27,7 +27,7 @@ function HrLogin() {
 
   useEffect(() => {
     const headers = { "Content-Type": "application/json" };
-    fetch("http://localhost:5000/Hr", { headers })
+    fetch("http://localhost:5000/HR", { headers })
       .then((response) => response.json())
       .then((data) => {
         setHrArr(data);
@@ -54,6 +54,7 @@ function HrLogin() {
   function handleSubmit(e) {
     e.preventDefault();
 
+    //validating the fields
     if (emailOk) {
       for (var i = 0; i < hrArr.length; i++) {
         if (hrArr[i].email === email && hrArr[i].password === password) {
@@ -64,14 +65,17 @@ function HrLogin() {
         }
       }
 
+      //verifying user in database
       if (userFound) {
         setTimeout(nav, 1500);
       } else {
         alert("User not found Please Check Credentials");
       }
+      //////////////////////////////////////////////////////////////
     } else {
       alert("The email format is not OK");
     }
+    /////////////////////////////////////////////////////////////////
   }
 
   return (
@@ -85,14 +89,16 @@ function HrLogin() {
           Login Successful
         </div>
       ) : null}
-      {/* ////////////////////////////////////////////// */}
+      {/* /////////////////////////////////////////////////////////// */}
       <h1 className="text-primary">HR Login</h1>
       <br></br>
+      {/* form */}
       <form
         onSubmit={(e) => {
           handleSubmit(e);
         }}
       >
+        {/* Email input field */}
         <div className="form-group">
           <label>
             <b>Email address:</b>
@@ -103,16 +109,11 @@ function HrLogin() {
             id="email"
             placeholder="Enter your email address"
             required
-            onBlur={(e) => {
-              dealEmail(e);
-            }}
-            onBlurCapture={(e) => {
-              dealEmail(e);
-            }}
             onChange={(e) => {
               dealEmail(e);
             }}
           />
+          {/* /////////////////////////////////////////////////////// */}
           {/* If email is invalid Error message  */}
           {!emailOk ? (
             <div
@@ -122,9 +123,11 @@ function HrLogin() {
               The email format is incorrect!!
             </div>
           ) : null}
+          {/* /////////////////////////////////////////////////////// */}
         </div>
-        {/* ////////////////////////////////////////////// */}
+        {/* ///////////////////////////////////////////////////////// */}
         <br></br>
+        {/* password input field */}
         <div className="form-group">
           <label>
             <b>Password:</b>
@@ -142,16 +145,26 @@ function HrLogin() {
             }}
           />
         </div>
+        {/* ///////////////////////////////////////////////////////// */}
         <br></br>
-        <button type="submit" className="btn btn-primary custom">
+        {/* button login and sign up */}
+        <button type="submit" className="btn btn-outline-primary custom">
           Login
         </button>
-        <button type="submit" className="btn btn-primary custom mx-4">
+        <button
+          type="submit"
+          className="btn btn-outline-primary custom mx-4"
+          onClick={() => {
+            navigate("/hrsignup");
+          }}
+        >
           Sign up
         </button>
+        {/* ///////////////////////////////////////////////////////// */}
         <br></br>
         <br></br>
       </form>
+      {/* /////////////////////////////////////////////////////////// */}
     </div>
   );
 }
