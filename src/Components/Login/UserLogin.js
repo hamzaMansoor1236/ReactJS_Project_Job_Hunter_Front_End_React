@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-
+import "./UserLogin.css"
 
 function UserLogin() {
   //array to fetch all the users
@@ -20,7 +20,8 @@ function UserLogin() {
   //boolean for email error alert
   var [emailOk, setEmailOk] = useState(true);
 
-  var userFound=false;
+  //variable to check is the user is found
+  var userFound = false;
 
   //navigation handling to the Userdashboard
   var navigate = useNavigate();
@@ -50,8 +51,6 @@ function UserLogin() {
     navigate("/UserDashboard");
   }
 
-  
-
   //handling the submission of form
   function handleSubmit(e) {
     e.preventDefault();
@@ -61,20 +60,16 @@ function UserLogin() {
         if (usersArr[i].email === email && usersArr[i].password === password) {
           console.log("User Match");
           setSubmit(true);
-          userFound=true
-          
+          userFound = true;
           break;
-          
         }
       }
 
-      if(userFound)
-      {
-            setTimeout(nav,1500);
+      if (userFound) {
+        setTimeout(nav, 1500);
+      } else {
+        alert("User not found Please Check Credentials");
       }
-
-
-
     } else {
       alert("The email format is not OK");
     }
@@ -93,6 +88,7 @@ function UserLogin() {
       ) : null}
       {/* ////////////////////////////////////////////// */}
       <h1 className="text-primary">User Login</h1>
+      <br></br>
       <form
         onSubmit={(e) => {
           handleSubmit(e);
@@ -129,6 +125,7 @@ function UserLogin() {
           ) : null}
         </div>
         {/* ////////////////////////////////////////////// */}
+        <br></br>
         <div className="form-group">
           <label>
             <b>Password:</b>
@@ -147,8 +144,11 @@ function UserLogin() {
           />
         </div>
         <br></br>
-        <button type="submit" className="btn btn-primary">
-          Submit
+        <button type="submit" className="btn btn-primary custom">
+          Login
+        </button>
+        <button type="submit" className="btn btn-primary custom mx-5">
+          Sign up
         </button>
         <br></br>
         <br></br>
@@ -156,5 +156,4 @@ function UserLogin() {
     </div>
   );
 }
-
 export default UserLogin;

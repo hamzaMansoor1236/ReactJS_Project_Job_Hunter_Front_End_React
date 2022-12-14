@@ -1,0 +1,158 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import "./HrLogin.css"
+function HrLogin() {
+  //array to fetch all the Hr's data
+  var [hrArr, setHrArr] = useState([]);
+
+  //regular expression for email validation
+  let regexEmail = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
+
+  //state of the Email and Password
+  var [email, setEmail] = useState("");
+  var [password, setPassword] = useState("");
+
+  //boolean for form submission alert
+  var [isSubmit, setSubmit] = useState(false);
+
+  //boolean for email error alert
+  var [emailOk, setEmailOk] = useState(true);
+
+  //variable to check is the user is found
+  var userFound = false;
+
+  //navigation handling to the Userdashboard
+  var navigate = useNavigate();
+
+  useEffect(() => {
+    const headers = { "Content-Type": "application/json" };
+    fetch("http://localhost:5000/Hr", { headers })
+      .then((response) => response.json())
+      .then((data) => {
+        setHrArr(data);
+      });
+  }, []);
+
+  //validationg Email
+  function dealEmail(e) {
+    setEmail(e.target.value);
+    if (regexEmail.test(email)) {
+      console.log("good Email");
+      setEmailOk(true);
+    } else {
+      setEmailOk(false);
+    }
+  }
+
+  //navigating to userDashboard
+  function nav() {
+    navigate("/HRDashboard");
+  }
+
+  //handling the submission of form
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (emailOk) {
+      for (var i = 0; i < hrArr.length; i++) {
+        if (hrArr[i].email === email && hrArr[i].password === password) {
+          console.log("User Match");
+          setSubmit(true);
+          userFound = true;
+          break;
+        }
+      }
+
+      if (userFound) {
+        setTimeout(nav, 1500);
+      } else {
+        alert("User not found Please Check Credentials");
+      }
+    } else {
+      alert("The email format is not OK");
+    }
+  }
+
+  return (
+    <div className="container  mt-5">
+      {/* If isSubmit true show success alert */}
+      {isSubmit ? (
+        <div
+          className="alert alert-success text-success text-center"
+          role="alert"
+        >
+          Login Successful
+        </div>
+      ) : null}
+      {/* ////////////////////////////////////////////// */}
+      <h1 className="text-primary">HR Login</h1>
+      <br></br>
+      <form
+        onSubmit={(e) => {
+          handleSubmit(e);
+        }}
+      >
+        <div className="form-group">
+          <label>
+            <b>Email address:</b>
+          </label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            placeholder="Enter your email address"
+            required
+            onBlur={(e) => {
+              dealEmail(e);
+            }}
+            onBlurCapture={(e) => {
+              dealEmail(e);
+            }}
+            onChange={(e) => {
+              dealEmail(e);
+            }}
+          />
+          {/* If email is invalid Error message  */}
+          {!emailOk ? (
+            <div
+              className="alert alert-danger text-danger text-center"
+              role="alert"
+            >
+              The email format is incorrect!!
+            </div>
+          ) : null}
+        </div>
+        {/* ////////////////////////////////////////////// */}
+        <br></br>
+        <div className="form-group">
+          <label>
+            <b>Password:</b>
+          </label>
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            placeholder="Enter your email password"
+            required
+            minLength={3}
+            maxLength={16}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+        </div>
+        <br></br>
+        <button type="submit" className="btn btn-primary custom">
+          Login
+        </button>
+        <button type="submit" className="btn btn-primary custom mx-4">
+          Sign up
+        </button>
+        <br></br>
+        <br></br>
+      </form>
+    </div>
+  );
+}
+export default HrLogin;

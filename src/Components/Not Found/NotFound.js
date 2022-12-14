@@ -18,7 +18,7 @@ function NotFound(){
                 <p className="lead">
                     The page you’re looking for doesn’t exist.
                 </p>
-                <button  className="btn btn-primary" onClick={ ()=>{navigate("/")}}>Go Home</button>
+                <button  className="btn btn-primary" onClick={ ()=>{navigate("/userLogin")}}>Go Home</button>
             </div>
 
         </div>
