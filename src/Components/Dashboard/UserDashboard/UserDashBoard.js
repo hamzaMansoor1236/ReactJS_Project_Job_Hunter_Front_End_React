@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import "./UserDashBoard.css";
+
 
 function UserDashboard() {
-  var user = localStorage.getItem("user");
+  var user = localStorage.getItem("username");
   var navigate = useNavigate();
   var yes = false;
 
@@ -10,7 +10,7 @@ function UserDashboard() {
     <div className="container mt-2">
       <nav className="navbar  ">
         <div className="container-fluid">
-          <a className="navbar-brand"><b>Dashboard</b></a>
+          <p className="navbar-brand text-primary customP"><b>{user} Dashboard</b></p>
           <form className="d-flex">
             <button
               className="btn btn-outline-primary custom"
@@ -26,18 +26,18 @@ function UserDashboard() {
       </nav>
       <div className="conatiner">
         {yes ? (
-          <h1></h1>
+          null
         ) : (
           <div className="text-center">
-            <h5 className="text-primary">Seems your profile is incomplete</h5>{" "}
+            <h5 className="text-primary">Seems your prefrences are incomplete</h5>{" "}
             <button
-              className="btn btn-outline-primary custom"
+              className="btn btn-outline-primary "
               onClick={() => {
-                localStorage.clear();
-                navigate("/");
+            
+                navigate("/userprofile");
               }}
             >
-              Profile
+              Preferences
             </button>
           </div>
         )}

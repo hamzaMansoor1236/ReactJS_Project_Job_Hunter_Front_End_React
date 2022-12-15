@@ -10,7 +10,7 @@ function NotFound() {
       <div className="text-center row">
         <div className=" col-md-6">
           <img
-            src="https://cdn.pixabay.com/photo/2017/03/09/12/31/error-2129569__340.jpg"
+            src="error.jpg"
             alt=""
             className="img-fluid"
           />
@@ -24,7 +24,7 @@ function NotFound() {
           <button
             className="btn btn-primary"
             onClick={() => {
-              navigate("/userLogin");
+              navigate("/");
             }}
           >
             Go Home

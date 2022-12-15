@@ -6,9 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 //For routing purpose
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-//importing <Home/> component
+
 import Home from "./Components/Home/Home";
-//importing <NotFound/> component
 import NotFound from "./Components/Not Found/NotFound";
 import UserLogin from "./Components/Login/UserLogin";
 import UserDashboard from "./Components/Dashboard/UserDashboard/UserDashBoard";
@@ -16,6 +15,8 @@ import HrLogin from "./Components/Login/HrLogin";
 import HRDashboard from "./Components/Dashboard/HrDashboard/HrDashboard";
 import UserSignUp from "./Components/SignUp/UserSignUp";
 import HRSignUp from "./Components/SignUp/HrSignUp";
+
+import UserPreference from "./Components/Preferences/UserPreferences";
 
 //root element of the application
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -34,6 +35,8 @@ root.render(
           path="/UserDashboard"
           element={<UserDashboard></UserDashboard>}
         ></Route>
+        <Route path="/UserProfile" element={<UserPreference></UserPreference>}></Route>
+
         {/* /////////////////////////////////////////////// */}
         {/* HR routes */}
         <Route path="/HRLogin" element={<HrLogin></HrLogin>}></Route>

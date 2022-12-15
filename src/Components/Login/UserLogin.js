@@ -61,7 +61,9 @@ function UserLogin() {
           console.log("User Match");
           setSubmit(true);
           userFound = true;
-          localStorage.setItem("user", usersArr[i].user_name);
+          localStorage.setItem("username", usersArr[i].user_name);
+          localStorage.setItem("id", usersArr[i].id);
+          localStorage.setItem("email", usersArr[i].email);
           break;
         }
       }
