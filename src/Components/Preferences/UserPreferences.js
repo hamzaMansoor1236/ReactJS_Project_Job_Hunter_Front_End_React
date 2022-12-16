@@ -3,73 +3,67 @@ import { useNavigate } from "react-router-dom";
 import "./UserPreferences.css";
 
 function UserPreferences() {
-
-  //var [preferencesArr,setUserPreference]=useState([]);
-  var userPreferenceObj = { id:"",user_id: "", role: "", position: "", location: "" };
-  var [alreadyExist,setAlreadyExist]=useState(false);
+  var [preferencesArr, setUserPreference] = useState([]);
+  var userPreferenceObj = {
+    id: "",
+    user_id: "",
+    role: "",
+    position: "",
+    location: "",
+  };
+  var [alreadyExist, setAlreadyExist] = useState(false);
 
   useEffect(() => {
     const headers = { "Content-Type": "application/json" };
     fetch("http://localhost:5000/userPreference", { headers })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.length)
-        console.log(localStorage.getItem('id'))
-        
-        
+        console.log(data.length);
+        console.log(localStorage.getItem("id"));
+        setUserPreference(data);
 
-        if(data.length>0)
-        {
-          console.log('inside the dta lenght check')
-          for(var i=0;i<data.length;i++)
-          {
-            console.log(typeof(data[i].user_id))
-            if(data[i].user_id===localStorage.getItem('id').toString())
-            {
-              console.log("User prefrences already exist in data base")
+        if (data.length > 0) {
+          console.log("inside the dta lenght check");
+          for (var i = 0; i < data.length; i++) {
+            console.log(typeof data[i].user_id);
+            if (data[i].user_id === localStorage.getItem("id").toString()) {
+              console.log("User preferences already exist in data base");
               setAlreadyExist(true);
               userPreferenceObj.id=data[i].id;
               userPreferenceObj.user_id=data[i].user_id;
               userPreferenceObj.role=data[i].role;
               userPreferenceObj.position=data[i].position;
               userPreferenceObj.location=data[i].location;
+              localStorage.setItem("preferenceID", data[i].id);
 
-              document.getElementById("selectRole").value=userPreferenceObj.role ;
-              if(userPreferenceObj.role==="Back End Developer")
-              {
+              document.getElementById("selectRole").value =
+                userPreferenceObj.role;
+              if (userPreferenceObj.role === "Back End Developer") {
                 setBackEnd(true);
                 setFrontEnd(false);
-              document.getElementById("selectPositionBackend").value=userPreferenceObj.position  ;
-              }
-              else if(userPreferenceObj.role ==="Front End Developer")
-              {
+                document.getElementById("selectPositionBackend").value =
+                  userPreferenceObj.position;
+              } else if (userPreferenceObj.role === "Front End Developer") {
                 setFrontEnd(true);
                 setBackEnd(false);
-              document.getElementById("selectPositionFrontend").value=userPreferenceObj.position  ;
+                document.getElementById("selectPositionFrontend").value =
+                  userPreferenceObj.position;
               }
-    
-              document.getElementById("selectLocation").value=userPreferenceObj.location;
 
-
-
-
-
+              document.getElementById("selectLocation").value =
+                userPreferenceObj.location;
             }
           }
         }
-
-        userPreferenceObj.id = ((data.length)+1);
-      
       });
   }, []);
-
 
   var user = localStorage.getItem("username");
   var navigate = useNavigate();
 
   var [frontEnd, setFrontEnd] = useState(false);
   var [backEnd, setBackEnd] = useState(false);
-  var [isSubmit,setIsSubmit] = useState (false);
+  var [isSubmit, setIsSubmit] = useState(false);
 
   function dealSelectRole() {
     console.log("dealSelectRole Invoked");
@@ -85,52 +79,67 @@ function UserPreferences() {
       setBackEnd(true);
     }
   }
-// function nav(){
-//   navigate('/userDashboard')
-// }
+  // function nav(){
+  //   navigate('/userDashboard')
+  // }
 
   function handleSubmit(e) {
     e.preventDefault();
-    
 
-    userPreferenceObj.user_id = localStorage.getItem("id").toString();
-
-    userPreferenceObj.role = document.getElementById("selectRole").value;
-    
-    userPreferenceObj.location = document.getElementById("selectLocation").value;
-    console.log(userPreferenceObj.location);
-    if (userPreferenceObj.role === "Front End Developer") {
-      console.log("Hurray FrontEnd Developer");
-      userPreferenceObj.position = document.getElementById("selectPositionFrontend").value;
-      console.log(userPreferenceObj.position);
+    if (alreadyExist) {
+      var position = "";
+      if (frontEnd) {
+        position = document.getElementById("selectPositionFrontend").value;
+      }
+      else{
+        position = document.getElementById("selectPositionBackend").value;
+      }
+      console.log(userPreferenceObj.user_id);
+      fetch(
+        "http://localhost:5000/userPreference/" +
+          localStorage.getItem("preferenceID"),
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: localStorage.getItem("preferenceID"),
+            user_id: localStorage.getItem("id").toString(),
+            role: document.getElementById("selectRole").value,
+            position: position,
+            location: document.getElementById("selectLocation").value,
+          }),
+        }
+      );
     } else {
-      console.log("Hurray BackEnd Developer");
-      userPreferenceObj.position = document.getElementById("selectPositionBackend").value;
-      console.log(userPreferenceObj.position);
-    }
-    console.log(userPreferenceObj.location);
-    console.log(userPreferenceObj)
+      userPreferenceObj.id = preferencesArr.length + 1;
 
-    if(alreadyExist)
-    {
-      fetch("http://localhost:5000/userPreference/"+userPreferenceObj.user_id ,{ 
-       
-  method: "PATCH",
-  headers: {
-      "Content-Type" : "application/json"
-    },
-  body: JSON.stringify(
-    {
-      "role": "Back End Developer",
-      "position":"Junior"
-      
-    }
-  )
-});
-    }
-    else{
-        
-    fetch("http://localhost:5000/userPreference", {
+      userPreferenceObj.user_id = localStorage.getItem("id").toString();
+
+      userPreferenceObj.role = document.getElementById("selectRole").value;
+
+      if (userPreferenceObj.role === "Front End Developer") {
+        console.log("Hurray FrontEnd Developer");
+        userPreferenceObj.position = document.getElementById(
+          "selectPositionFrontend"
+        ).value;
+        console.log(userPreferenceObj.position);
+      } else {
+        console.log("Hurray BackEnd Developer");
+        userPreferenceObj.position = document.getElementById(
+          "selectPositionBackend"
+        ).value;
+        console.log(userPreferenceObj.position);
+      }
+
+      userPreferenceObj.location =
+        document.getElementById("selectLocation").value;
+      console.log(userPreferenceObj.location);
+
+      console.log(userPreferenceObj);
+
+      fetch("http://localhost:5000/userPreference", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -143,8 +152,7 @@ function UserPreferences() {
         });
     }
 
-
-     setIsSubmit(true);
+    setIsSubmit(true);
     // setTimeout(nav,1500);
   }
 
@@ -157,7 +165,6 @@ function UserPreferences() {
             <b>{user} </b>
           </p>
           <form className="d-flex">
-      
             <button
               className="btn btn-outline-primary customButton"
               onClick={() => {
@@ -275,24 +282,26 @@ function UserPreferences() {
           </div>
         </div>
         <br></br>
-               {/* If isSubmit true show success alert */}
-      {alreadyExist ? (
-        <button
-        id="buttonSubmit"
-        className="btn btn-outline-primary customSubmit"
-        type="submit"
-      >
-        Update
-      </button>
-      ) : <button
-      id="buttonSubmit"
-      className="btn btn-outline-primary customSubmit"
-      type="submit"
-    >
-      Submit
-    </button>}
-      {/* ////////////////////////////////////////////// */}
-        
+        {/* If isSubmit true show success alert */}
+        {alreadyExist ? (
+          <button
+            id="buttonSubmit"
+            className="btn btn-outline-primary customSubmit"
+            type="submit"
+          >
+            Update
+          </button>
+        ) : (
+          <button
+            id="buttonSubmit"
+            className="btn btn-outline-primary customSubmit"
+            type="submit"
+          >
+            Submit
+          </button>
+        )}
+        {/* ////////////////////////////////////////////// */}
+
         <button
           id="buttonSubmit"
           className="btn btn-outline-primary customSubmit mx-3"
