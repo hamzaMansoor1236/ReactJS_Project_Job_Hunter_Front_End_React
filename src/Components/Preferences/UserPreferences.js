@@ -79,9 +79,9 @@ function UserPreferences() {
       setBackEnd(true);
     }
   }
-  // function nav(){
-  //   navigate('/userDashboard')
-  // }
+  function nav(){
+    navigate('/userDashboard')
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -153,7 +153,7 @@ function UserPreferences() {
     }
 
     setIsSubmit(true);
-    // setTimeout(nav,1500);
+    setTimeout(nav,1500);
   }
 
   return (
@@ -208,7 +208,7 @@ function UserPreferences() {
               Professional Preference
             </p>
 
-            <label>Select you role:</label>
+            <label>Select your role:</label>
             <select
               className="form-select"
               id="selectRole"
