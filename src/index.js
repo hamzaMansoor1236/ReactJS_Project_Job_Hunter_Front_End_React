@@ -16,7 +16,11 @@ import HRDashboard from "./Components/Dashboard/HrDashboard/HrDashboard";
 import UserSignUp from "./Components/SignUp/UserSignUp";
 import HRSignUp from "./Components/SignUp/HrSignUp";
 
+
 import UserPreference from "./Components/Preferences/UserPreferences";
+import AdminLogin from "./Components/Login/AdminLogin";
+import AdminSignUp from "./Components/SignUp/adminSignUp";
+import Dashboard from "./Components/Dashboard/AdminDashboard/Dashboard";
 
 //root element of the application
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -51,6 +55,13 @@ root.render(
         {/* Not found Route */}
         <Route path="*" element={<NotFound></NotFound>}></Route>
         {/* //////////////////////////////////////////////// */}
+         {/* admin Route */}
+         <Route path="/adminlogin" element={<AdminLogin></AdminLogin>}></Route>
+         <Route path="/adminsignup" element={<AdminSignUp></AdminSignUp>}></Route>
+        <Route path="/admindashboard" element={<Dashboard></Dashboard>}></Route>
+
+        {/* //////////////////////////////////////////////// */}
+
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

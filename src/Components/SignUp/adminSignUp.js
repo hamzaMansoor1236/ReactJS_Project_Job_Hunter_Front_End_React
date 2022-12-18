@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Route, useNavigate } from "react-router-dom";
-import {ToastContainer,toast} from 'react-toastify'
+// import {ToastContainer,toast} from 'react-toastify'
 
 import React from 'react'
 
 
 
-function adminSignUp() {
+function AdminSignUp() {
   const [data, setData] = useState([]);
   const [name, setName] = useState("");
   const [Birthday, setBirthday] = useState("");
@@ -46,7 +46,7 @@ function adminSignUp() {
       email === "" ||
       password === ""
     ) {
-      toast.error("Fields cannot be empty",{autoClose:3000});
+      alert("Fields cannot be empty");
     } else {
       const user = {
         id: id,
@@ -64,7 +64,7 @@ function adminSignUp() {
         body: JSON.stringify(user),
       }).then((res) => {
         if (res.status === 201) {
-          toast.success("Registration Done, Please Login",{autoClose:3000, onClose:()=>{navigate("/login")}});
+          alert("Registration Done, Please Login",{onClose:()=>{navigate("/login")}});
         }
       });
     }
@@ -158,9 +158,8 @@ function adminSignUp() {
         </form>
       </div>
     </div>
-    <ToastContainer/>
     </div>
   );
 }
 
-export default adminSignUp;
+export default AdminSignUp;

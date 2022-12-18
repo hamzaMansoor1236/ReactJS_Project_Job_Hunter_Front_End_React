@@ -42,7 +42,9 @@ else{
     console.log(loginID)
   }
 }
-
+function handleSubmit(){
+  navigate("/adminDashboard");
+}
 
 
   return (
@@ -52,7 +54,7 @@ else{
           <h1 className="mb-4 display-7 ms-5 text-sm-center text-lg-start text-md-start text-center">
             Admin Login
           </h1>
-          <form className="ms-5">
+          <form className="ms-5" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-lg-6 col-md-6 col-sm-12 col-12">
                 <label className="form-label py-2">Email</label>
@@ -81,7 +83,7 @@ else{
                 type="submit"
                 className="btn btn-danger px-5 mt-4"
                 onClick={login}
-                id="btn"
+                id="btn" 
               >
                 login
               </button>
