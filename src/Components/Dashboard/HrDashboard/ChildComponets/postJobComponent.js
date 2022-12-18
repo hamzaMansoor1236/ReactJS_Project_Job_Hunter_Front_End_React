@@ -1,14 +1,72 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function PostJOb(){
 
+  var [postsArr,setPostsArr]=useState([]);
+
+  useEffect(() => {
+    const headers = { "Content-Type": "application/json" };
+    fetch("http://localhost:5000/posts", { headers })
+      .then((response) => response.json())
+      .then((data) => {
+        setPostsArr(data);
+      });
+  }, []);
+
+    
+
     var navigate=useNavigate();
     var [isSubmit,setIsSubmit]=useState(false);
+
+    function hideAlert(){
+      setIsSubmit(false);
+    }
     function handleSubmit(e){
         e.preventDefault();
 
+        var postsObj= {
+              // "id": 1,
+        // "hr_id": "1",
+        // "role": "Front End Developer",
+        // "position": "Beginner",
+        // "location": "Karachi"
 
+          id:((postsArr.length)+1),
+          hr_id:localStorage.getItem("hr_id"),
+          role:document.getElementById("selectRole").value,
+          position:document.getElementById("position").value,
+          location:document.getElementById("location").value
+
+        }
+
+        console.log(postsObj);
+
+        fetch("http://localhost:5000/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postsObj),
+      })
+        .then((response) => response.json())
+        .then((info) => {
+          console.log("Response from server" + info);
+        });
+      
+      document.getElementById("selectRole").value="";
+      document.getElementById("position").value="";
+      document.getElementById("location").value="";
+
+      setIsSubmit(true);
+      setTimeout(hideAlert,2000);
+
+
+
+      navigate("/hrdashboard");
+
+    
     }
 
     return(
@@ -56,8 +114,8 @@ function PostJOb(){
                   <label>Select Position:</label>
                   <select
                     className="form-select"
-                    id="selectPositionFrontend"
-                    name="selectExperience"
+                    id="position"
+                    name="selectPosition"
                     required
                   >
                     <option></option>
@@ -83,7 +141,7 @@ function PostJOb(){
               <label>Select location:</label>
               <select
                 className="form-select"
-                id="selectLocation"
+                id="location"
                 name="selectLocation"
                 required
               >

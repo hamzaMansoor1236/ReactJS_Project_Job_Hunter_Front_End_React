@@ -7,7 +7,7 @@ function HRDashboard() {
   var navigate = useNavigate();
   var [home, setHome] = useState(false);
   var [news, setNews] = useState(false);
-  var [sectionHeading, setSectionHeading] = useState("Please Select Action from Side bar");
+  var [sectionHeading, setSectionHeading] = useState("Please select action from side bar");
   var [posted,setPosted]=useState(false);
 
   function dealHome() {

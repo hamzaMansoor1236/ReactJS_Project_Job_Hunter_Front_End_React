@@ -15,6 +15,7 @@ function UserDashboard() {
       .then((response) => response.json())
       .then((data) => {
         setUserPreferencesArr(data);
+        console.log(prefrencesArr.length)
         for (var i = 0; i < data.length; i++) {
           if (data[i].user_id === localStorage.getItem("id")) {
             console.log("Preferences are found in the array");

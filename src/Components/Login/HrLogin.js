@@ -60,7 +60,7 @@ function HrLogin() {
         if (hrArr[i].email === email && hrArr[i].password === password) {
           console.log("User Match");
           setSubmit(true);
-          localStorage.setItem('id',hrArr[i].id);
+          localStorage.setItem('hr_id',hrArr[i].id);
           localStorage.setItem('username',hrArr[i].user_name)
 
           userFound = true;
