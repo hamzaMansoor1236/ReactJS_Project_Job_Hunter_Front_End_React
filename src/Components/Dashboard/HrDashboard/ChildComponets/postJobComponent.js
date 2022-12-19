@@ -1,53 +1,15 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 // import emailjs from '@emailjs/browser';
 
-function PostJOb() {
+function PostJOb({ handleDisplay, sectionHeading }) {
   //storing the posts
   var [postsArr, setPostsArr] = useState([]);
-  ///////////////////////////////////////////////////////////////////
-
-   //varaible to store the user preference data
-   var [userPreferencesArr,setPreferencesArr] = useState([]);
-   ///////////////////////////////////////////////////////////////////
-
-  //UseEffect to fetch latest data in the posts database
-  useEffect(() => {
-    fetch("http://localhost:5000/posts", { "Content-Type": "application/json" })
-      .then((response) => response.json())
-      .then((data) => {
-        setPostsArr(data);
-        console.log(data[0]);
-      });
-  }, []);
-  ///////////////////////////////////////////////////////////////////
-  //useeffect to fetch latest prefrences from database
-  useEffect(() => {
-    const headers = { "Content-Type": "application/json" };
-    fetch("http://localhost:5000/userPreference", { headers })
-      .then((response) => response.json())
-      .then((data) => {
-        setPreferencesArr(data);
-      });
-  }, []);
-  ///////////////////////////////////////////////////////////////////
-
-  //variables to store values from the form
-  var role = "";
-  var position = "";
-  var location = "";
-  ///////////////////////////////////////////////////////////////////
-
-  //variable for navigating to another route
-  var navigate = useNavigate();
   ///////////////////////////////////////////////////////////////////
 
   //variable to deal alertShow and unshow
   var [isSubmit, setIsSubmit] = useState(false);
   ///////////////////////////////////////////////////////////////////
-
- 
 
   //function that hides the alert
   function hideAlert() {
@@ -55,35 +17,15 @@ function PostJOb() {
   }
   ///////////////////////////////////////////////////////////////////
 
-  //function matchUsersToPosts
-  function matchUsersToPost() {
-    console.log("inside match users to posts");
-
-   
-
-    console.log("role == " + role);
-    console.log("position == " + position);
-    console.log("location == " + location);
-
-    console.log("User Preferences length = ", userPreferencesArr.length);
-
-    for (var i = 0; i < userPreferencesArr.length; i++) {
-      console.log("inside for loop");
-      console.log("role == " + role);
-      console.log("position == " + position);
-      console.log("location == " + location);
-      console.log("inside for loop");
-      console.log(userPreferencesArr[i]);
-      if (
-        userPreferencesArr[i].role === role &&
-        userPreferencesArr[i].position === position &&
-        userPreferencesArr[i].location === location
-      ) {
-        console.log(i," MAtche present");
-      }
-    }
-  }
-  ///////////////////////////////////////////////////////////////////
+  useEffect(() => {
+    //fetching the data of posts table from database
+    fetch("http://localhost:5000/posts", { "Content-Type": "application/json" })
+      .then((response) => response.json())
+      .then((data) => {
+        setPostsArr(data);
+      });
+    /////////////////////////////////////////////////////////////////
+  }, []);
 
   //function that handles the submit
   function handleSubmit(e) {
@@ -98,16 +40,14 @@ function PostJOb() {
       role: document.getElementById("selectRole").value,
       position: document.getElementById("position").value,
       location: document.getElementById("location").value,
+      status: "Active",
     };
     /////////////////////////////////////////////////////////////////
-    //setting the value of role position and location in variables
-    role = document.getElementById("selectRole").value;
-    position = document.getElementById("position").value;
-    location = document.getElementById("location").value;
 
-    //setting the id of the post
+    //setting the id of the postobj
     postsObj.id = postsArr.length + 1;
     /////////////////////////////////////////////////////////////////
+
     //displaying data in the post
     console.log(postsObj);
     /////////////////////////////////////////////////////////////////
@@ -124,7 +64,6 @@ function PostJOb() {
       .then((info) => {
         console.log("Response from server" + info);
       });
-
     /////////////////////////////////////////////////////////////////
 
     //clearing the form
@@ -137,21 +76,23 @@ function PostJOb() {
     setIsSubmit(true);
     /////////////////////////////////////////////////////////////////
 
-    //updating the state of the posts array
+    //fetching the data of posts table from database
     fetch("http://localhost:5000/posts", { "Content-Type": "application/json" })
       .then((response) => response.json())
       .then((data) => {
         setPostsArr(data);
-        console.log(data[0]);
       });
     /////////////////////////////////////////////////////////////////
+
     //hiding the alert after 2 seconds
     setTimeout(hideAlert, 2000);
     /////////////////////////////////////////////////////////////////
+    setTimeout(handleChanges, 2000);
+  }
 
-    matchUsersToPost();
-
-    //navigate("/hrdashboard");
+  function handleChanges() {
+    handleDisplay(false);
+    sectionHeading("Please select action ");
   }
 
   return (
@@ -166,6 +107,7 @@ function PostJOb() {
         </div>
       ) : null}
       {/* ////////////////////////////////////////////// */}
+
       <form
         onSubmit={(e) => {
           handleSubmit(e);

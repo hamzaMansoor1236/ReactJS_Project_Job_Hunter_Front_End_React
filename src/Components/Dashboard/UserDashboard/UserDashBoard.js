@@ -4,25 +4,34 @@ import { useEffect } from "react";
 import "./UserDashBoard.css";
 
 function UserDashboard() {
+  //getting username from local storage
   var user = localStorage.getItem("username");
+  ///////////////////////////////////////////////////////////////////
+
+  //variable to navigate to the desired route
   var navigate = useNavigate();
-  
-  var [prefrencesArr, setUserPreferencesArr] = useState([]);
+  ///////////////////////////////////////////////////////////////////
+
+  //matches array to display data in table 
+  var [matchesArr, setMatchesArr] = useState([]);
+  ///////////////////////////////////////////////////////////////////
+
+  var displayArr=[];
 
   useEffect(() => {
     const headers = { "Content-Type": "application/json" };
-    fetch("http://localhost:5000/userPreference", { headers })
+    fetch("http://localhost:5000/matches", { headers })
       .then((response) => response.json())
       .then((data) => {
-        setUserPreferencesArr(data);
-        console.log(prefrencesArr.length)
-        for (var i = 0; i < data.length; i++) {
-          if (data[i].user_id === localStorage.getItem("id")) {
-            console.log("Preferences are found in the array");
-            
-            break;
+        for(var i=0;i<data.length;i++)
+        {
+          if(data[i].user_id===localStorage.getItem("id"))
+          {
+            displayArr.push(data[i])
           }
+
         }
+        setMatchesArr(displayArr);
       });
   }, []);
 
@@ -61,35 +70,28 @@ function UserDashboard() {
         </h4>
       </div>
       <div class="container mt-3">
-        <h2>Hover Rows</h2>
-        <p>
-          The .table-hover class enables a hover state (grey background on mouse
-          over) on table rows:
-        </p>
+        <h2>Jobs </h2>
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Firstname</th>
-              <th>Lastname</th>
-              <th>Email</th>
+              <th>Id</th>
+              <th>Role</th>
+              <th>Position</th>
+              <th>Location</th>
+              <th>Status </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>John</td>
-              <td>Doe</td>
-              <td>john@example.com</td>
-            </tr>
-            <tr>
-              <td>Mary</td>
-              <td>Moe</td>
-              <td>mary@example.com</td>
-            </tr>
-            <tr>
-              <td>July</td>
-              <td>Dooley</td>
-              <td>july@example.com</td>
-            </tr>
+            {
+              matchesArr.map(dataIn => {
+                return <tr key={dataIn.id}>
+                  <td>{dataIn.id}</td>
+                  <td>{dataIn.id}</td>
+                  <td>{dataIn.job_status}</td>
+                </tr>
+                
+              })
+            }
           </tbody>
         </table>
       </div>

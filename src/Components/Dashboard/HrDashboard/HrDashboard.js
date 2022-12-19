@@ -5,22 +5,22 @@ import PostJOb from "./ChildComponets/postJobComponent";
 
 function HRDashboard() {
   var navigate = useNavigate();
-  var [home, setHome] = useState(false);
+  var [postJobSection, setPostJobSection] = useState(false);
   var [news, setNews] = useState(false);
-  var [sectionHeading, setSectionHeading] = useState("Please select action from side bar");
-  var [posted,setPosted]=useState(false);
+  var [sectionHeading, setSectionHeading] = useState(
+    "Please select action "
+  );
 
   function dealHome() {
-    setHome(true);
+    setPostJobSection(true);
     setNews(false);
     setSectionHeading("Post Job");
   }
   function dealNews() {
-    setHome(false);
+    setPostJobSection(false);
     setNews(true);
     setSectionHeading("News");
   }
- 
 
   return (
     <div className=" mt-1">
@@ -49,7 +49,7 @@ function HRDashboard() {
             Post Job
           </a>
           <a className="border " href="#news" onClick={dealNews}>
-            News
+            Manage Jobs
           </a>
           <a className="border " href="#contact">
             Contact
@@ -61,28 +61,16 @@ function HRDashboard() {
 
         <div className="content border border bg-light">
           <div>
-            {" "}
             <h4 className="text-success ">{sectionHeading}</h4>
           </div>
-
-          {home ? (
+          {/* Condidtional REndering the  */}
+          {postJobSection ? (
             <div>
-            <PostJOb></PostJOb>
-              {/* If isSubmit true show success alert */}
-              {posted ? (
-                <div
-                  className="alert alert-success text-success text-center"
-                  role="alert"
-                >
-                  Preference Added Successfully
-                </div>
-              ) : null}
-              {/* ////////////////////////////////////////////// */}
-                    {/* personal details section */}
-      
-      </div>
-
-              
+              <PostJOb
+                handleDisplay={setPostJobSection}
+                sectionHeading={setSectionHeading}
+              ></PostJOb>
+            </div>
           ) : null}
 
           {news ? (
