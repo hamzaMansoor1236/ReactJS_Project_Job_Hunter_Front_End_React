@@ -20,7 +20,7 @@ import HRSignUp from "./Components/SignUp/HrSignUp";
 import UserPreference from "./Components/Preferences/UserPreferences";
 import AdminLogin from "./Components/Login/AdminLogin";
 import AdminSignUp from "./Components/SignUp/adminSignUp";
-import Dashboard from "./Components/Dashboard/AdminDashboard/Dashboard";
+import App from "./Components/Dashboard/AdminDashboard/App";
 
 //root element of the application
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -58,7 +58,7 @@ root.render(
          {/* admin Route */}
          <Route path="/adminlogin" element={<AdminLogin></AdminLogin>}></Route>
          <Route path="/adminsignup" element={<AdminSignUp></AdminSignUp>}></Route>
-        <Route path="/admindashboard" element={<Dashboard></Dashboard>}></Route>
+        <Route path="/admindashboard" element={<App></App>}></Route>
 
         {/* //////////////////////////////////////////////// */}
 

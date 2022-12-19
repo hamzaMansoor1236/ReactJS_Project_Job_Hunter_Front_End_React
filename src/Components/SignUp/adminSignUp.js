@@ -148,7 +148,7 @@ function AdminSignUp() {
           <div className="col-12 text-sm-center text-lg-start text-md-start text-center">
             <button
               type="submit"
-              className="btn btn-danger px-5 mt-2"
+              className="btn btn-Primery px-5 mt-2"
               onClick={submit}
               id="btn"
             >
