@@ -93,7 +93,7 @@ function HrLogin() {
         </div>
       ) : null}
       {/* /////////////////////////////////////////////////////////// */}
-      <h1 className="text-primary">HR Login</h1>
+      <h1 className="text-success">HR Login</h1>
       <br></br>
       {/* form */}
       <form
@@ -104,7 +104,7 @@ function HrLogin() {
         {/* Email input field */}
         <div className="form-group">
           <label>
-            <b>Email address:</b>
+            <b className="text-success">Email address:</b>
           </label>
           <input
             type="email"
@@ -133,7 +133,7 @@ function HrLogin() {
         {/* password input field */}
         <div className="form-group">
           <label>
-            <b>Password:</b>
+            <b className="text-success">Password:</b>
           </label>
           <input
             type="password"
@@ -151,12 +151,12 @@ function HrLogin() {
         {/* ///////////////////////////////////////////////////////// */}
         <br></br>
         {/* button login and sign up */}
-        <button type="submit" className="btn btn-outline-primary custom">
+        <button type="submit" className="btn btn-outline-success custom">
           Login
         </button>
         <button
           type="submit"
-          className="btn btn-outline-primary custom mx-4"
+          className="btn btn-outline-success custom mx-4"
           onClick={() => {
             navigate("/hrsignup");
           }}

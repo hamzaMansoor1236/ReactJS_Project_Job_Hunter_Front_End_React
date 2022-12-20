@@ -183,6 +183,13 @@ function PostJOb({ handleDisplay, sectionHeading }) {
         >
           Submit
         </button>
+        <button
+          id="buttonSubmit"
+          className="btn btn-outline-success customSubmit mx-3"
+         onClick={handleChanges}
+        >
+          Cancel
+        </button>
         {/* ////////////////////////////////////////////// */}
       </form>
     </div>

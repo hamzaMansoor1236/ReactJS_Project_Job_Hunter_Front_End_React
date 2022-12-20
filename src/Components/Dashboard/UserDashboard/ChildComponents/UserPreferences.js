@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./UserPreferences.css";
 
-function UserPreferences() {
+function UserPreferences({setSectionPreference,setSectionHeading}) {
   var [preferencesArr, setUserPreference] = useState([]);
   var userPreferenceObj = {
     id: "",
@@ -12,6 +11,10 @@ function UserPreferences() {
     location: "",
   };
   var [alreadyExist, setAlreadyExist] = useState(false);
+
+
+  var [operation, setOperation] = useState("Added");
+  
 
   useEffect(() => {
     const headers = { "Content-Type": "application/json" };
@@ -58,8 +61,8 @@ function UserPreferences() {
       });
   }, []);
 
-  var user = localStorage.getItem("username");
-  var navigate = useNavigate();
+
+
 
   var [frontEnd, setFrontEnd] = useState(false);
   var [backEnd, setBackEnd] = useState(false);
@@ -79,14 +82,13 @@ function UserPreferences() {
       setBackEnd(true);
     }
   }
-  function nav(){
-    navigate('/userDashboard')
-  }
+
 
   function handleSubmit(e) {
     e.preventDefault();
 
     if (alreadyExist) {
+      setOperation("Updated")
       var position = "";
       if (frontEnd) {
         position = document.getElementById("selectPositionFrontend").value;
@@ -153,38 +155,24 @@ function UserPreferences() {
     }
 
     setIsSubmit(true);
-    setTimeout(nav,1500);
+    setTimeout(handleDisplay,1500);
+  }
+
+  function handleDisplay(){
+    setSectionHeading("Please select action");
+    setSectionPreference(false);
   }
 
   return (
-    <div className="container mt-2">
-      {/* nav bar section */}
-      <nav className="navbar  ">
-        <div className="container-fluid">
-          <p className="navbar-brand text-primary customP">
-            <b>{user} </b>
-          </p>
-          <form className="d-flex">
-            <button
-              className="btn btn-outline-primary customButton"
-              onClick={() => {
-                localStorage.clear();
-                navigate("/");
-              }}
-            >
-              Logout
-            </button>
-          </form>
-        </div>
-      </nav>
-      {/* /////////////////////////////////////////////////////////// */}
+    <div className="container ">
+   
       {/* If isSubmit true show success alert */}
       {isSubmit ? (
         <div
           className="alert alert-success text-success text-center"
           role="alert"
         >
-          Preference Added Successfully
+          Preferences {operation} Successfully
         </div>
       ) : null}
       {/* ////////////////////////////////////////////// */}
@@ -195,10 +183,7 @@ function UserPreferences() {
           handleSubmit(e);
         }}
       >
-        <div className="conatiner ">
-          <p className="text-center  fs-4 text-secondary">Preferences </p>
-        </div>
-        {/* /////////////////////////////////////////////////////////// */}
+        
 
         {/* Professional details section */}
         <hr></hr>
@@ -305,9 +290,7 @@ function UserPreferences() {
         <button
           id="buttonSubmit"
           className="btn btn-outline-primary customSubmit mx-3"
-          onClick={() => {
-            navigate("/userdashboard");
-          }}
+          onClick={handleDisplay}
         >
           Back
         </button>

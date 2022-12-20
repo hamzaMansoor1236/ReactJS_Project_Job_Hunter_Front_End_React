@@ -1,0 +1,64 @@
+.customButton{
+  width: 100px;
+  margin-right: -10px;
+ 
+}
+
+.customP{
+ 
+  margin-left: -10px;
+ 
+}
+.floatR{
+  float:right;
+}
+
+.sidebaar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.sidebaar a {
+  display: block;
+  color: rgb(0, 0, 0);
+  padding: 16px;
+  text-decoration: none;
+}
+ 
+.sidebaar a.active {
+  background-color:#697ef3;
+    color: white;
+}
+
+.sidebaar a:hover:not(.active) {
+  background-color:#227517;
+  color: white;
+}
+
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}

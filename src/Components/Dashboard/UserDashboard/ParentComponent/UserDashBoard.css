@@ -1,3 +1,18 @@
+.customButton{
+    width: 100px;
+    margin-right: -10px;
+   
+}
+
+.customP{
+   
+    margin-left: -10px;
+   
+}
+.floatR{
+    float:right;
+}
+
 .sidebar {
     margin: 0;
     padding: 0;
@@ -21,7 +36,7 @@
   }
   
   .sidebar a:hover:not(.active) {
-    background-color:#04AA6D;
+    background-color:#697ef3;
     color: white;
   }
   

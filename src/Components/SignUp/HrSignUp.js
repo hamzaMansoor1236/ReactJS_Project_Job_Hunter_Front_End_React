@@ -58,23 +58,22 @@ function HRSignUp() {
 
   return (
     <div className="container mt-5 ">
-      <h1 className="text-primary">HR Sign Up</h1>
-      <br></br>
+      <h1 className="text-success">HR Sign Up</h1>
       {/* form  */}
       <form onSubmit={Create}>
         {/* ID input field */}
         <div>
           <label>
-            <b>ID</b>{" "}
+            <b className="text-success" hidden={true}>ID</b>{" "}
           </label>
-          <input type="number" className="form-control" id="id" disabled />
+          <input type="number" className="form-control" id="id" disabled hidden={true} />
         </div>
         {/* ///////////////////////////////////////////////////////// */}
-        <br></br>
+        
         {/* username input field */}
         <div>
           <label>
-            <b>Username</b>
+            <b className="text-success">Username</b>
           </label>
           <input
             type="text"
@@ -89,7 +88,7 @@ function HRSignUp() {
         {/* Email input  field*/}
         <div>
           <label>
-            <b>Email address</b>
+            <b className="text-success">Email address</b>
           </label>
           <input
             type="email"
@@ -104,7 +103,7 @@ function HRSignUp() {
         {/* Password input field*/}
         <div>
           <label>
-            <b>Password</b>
+            <b className="text-success">Password</b>
           </label>
           <input
             type="password"
@@ -121,12 +120,12 @@ function HRSignUp() {
         <br></br>
         {/* Buttons login and sign up */}
         <div>
-          <button type="submit" className="btn btn-outline-primary custom">
+          <button type="submit" className="btn btn-outline-success custom">
             Sign Up
           </button>
 
           <button
-            className="btn btn-outline-primary mx-3 custom"
+            className="btn btn-outline-success mx-3 custom"
             onClick={() => {
               navigate("/Hrlogin");
             }}

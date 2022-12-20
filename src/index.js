@@ -10,13 +10,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Components/Home/Home";
 import NotFound from "./Components/Not Found/NotFound";
 import UserLogin from "./Components/Login/UserLogin";
-import UserDashboard from "./Components/Dashboard/UserDashboard/UserDashBoard";
+
 import HrLogin from "./Components/Login/HrLogin";
-import HRDashboard from "./Components/Dashboard/HrDashboard/HrDashboard";
+
 import UserSignUp from "./Components/SignUp/UserSignUp";
 import HRSignUp from "./Components/SignUp/HrSignUp";
 
-import UserPreference from "./Components/Preferences/UserPreferences";
+import UserPreference from "./Components/Dashboard/UserDashboard/ChildComponents/UserPreferences";
+import HRDashboard from "./Components/Dashboard/HrDashboard/ParentComponent/HrDashboard";
+import UserDashboard from "./Components/Dashboard/UserDashboard/ParentComponent/UserDashBoard";
 
 //root element of the application
 const root = ReactDOM.createRoot(document.getElementById("root"));

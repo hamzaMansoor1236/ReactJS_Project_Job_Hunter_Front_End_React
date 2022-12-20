@@ -1,25 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./HrDashboard.css";
-import PostJOb from "./ChildComponets/postJobComponent";
+import PostJOb from "../ChildComponets/postJobComponent";
 
 function HRDashboard() {
   var navigate = useNavigate();
   var [postJobSection, setPostJobSection] = useState(false);
-  var [news, setNews] = useState(false);
-  var [sectionHeading, setSectionHeading] = useState(
-    "Please select action "
-  );
+  var [manageJobSection, setManageJobSection] = useState(false);
+  var [sectionHeading, setSectionHeading] = useState("Please select action ");
 
   function dealHome() {
     setPostJobSection(true);
-    setNews(false);
+    setManageJobSection(false);
     setSectionHeading("Post Job");
   }
   function dealNews() {
     setPostJobSection(false);
-    setNews(true);
-    setSectionHeading("News");
+    setManageJobSection(true);
+    setSectionHeading("Manage Job Postings");
   }
 
   return (
@@ -27,7 +25,7 @@ function HRDashboard() {
       <nav className="navbar  ">
         <div className="container-fluid">
           <p className="navbar-brand text-success customP">
-            <b> Dashboard</b>
+            <b className="mx-3"> Dashboard</b>
           </p>
           <form className="d-flex">
             <button
@@ -44,7 +42,7 @@ function HRDashboard() {
       </nav>
 
       <div className="conatiner">
-        <div className="sidebar">
+        <div className="sidebaar">
           <a className="border " href="#home" onClick={dealHome}>
             Post Job
           </a>
@@ -73,12 +71,10 @@ function HRDashboard() {
             </div>
           ) : null}
 
-          {news ? (
-            <p>
-              NEws section This example use media queries to transform the
-              sidebar to a top navigation bar when the screen size is 700px or
-              less.
-            </p>
+          {manageJobSection ? (
+           <div>
+            
+            </div>
           ) : null}
         </div>
       </div>

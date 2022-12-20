@@ -52,18 +52,17 @@ function UserSignUp() {
   return (
     <div className="container mt-5 ">
       <h1 className="text-primary">User Sign Up</h1>
-      <br></br>
+    
       <form onSubmit={Create}>
       <div >
         <label>
-          <b>ID</b>{" "}
+          <b className="text-primary" hidden={true}>ID</b>{" "}
         </label>
-        <input type="number" className="form-control" id="id" disabled />
+        <input type="number" className="form-control" id="id" disabled hidden={true}/>
       </div>
-      <br></br>
       <div>
         <label>
-          <b>Username</b>
+          <b className="text-primary">Username</b>
         </label>
         <input
           type="text"
@@ -76,7 +75,7 @@ function UserSignUp() {
       <br></br>
       <div>
         <label>
-          <b>Email address</b>
+          <b className="text-primary">Email address</b>
         </label>
         <input
           type="email"
@@ -90,7 +89,7 @@ function UserSignUp() {
 
       <div>
         <label>
-          <b>Password</b>
+          <b className="text-primary">Password</b>
         </label>
         <input
           type="password"

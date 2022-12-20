@@ -99,7 +99,7 @@ function UserLogin() {
       >
         <div className="form-group">
           <label>
-            <b>Email address:</b>
+            <b className="text-primary">Email address:</b>
           </label>
           <input
             type="email"
@@ -131,7 +131,7 @@ function UserLogin() {
         <br></br>
         <div className="form-group">
           <label>
-            <b>Password:</b>
+            <b className="text-primary">Password:</b>
           </label>
           <input
             type="password"
