@@ -20,6 +20,8 @@ const Dashboard = () => {
 
     return (
     <div className="col main pt-5 mt-3">
+
+
         <p className="lead d-none d-sm-block">Add Employee Details and Records</p>  
         <div className="row mb-3">
             <div className="col-xl-3 col-sm-6 py-2">
@@ -71,7 +73,16 @@ const Dashboard = () => {
         <hr/>
       
         <div className="row ">
+       
             <div className="col-lg-7 col-md-6 col-sm-12">
+            <button
+                type="submit"
+                className="btn btn-primary px-5 mt-4"
+              
+                id="btn" 
+              >
+                Buttton 
+              </button>
               <h5 className="mt-3 mb-3 text-secondary">
                Check More Records of Employees
               </h5>

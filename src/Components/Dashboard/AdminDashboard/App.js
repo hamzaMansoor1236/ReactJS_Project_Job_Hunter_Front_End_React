@@ -11,8 +11,9 @@ function App(){
                 <Navbar/>
                 <div className="container-fluid" id="main">
                  <div className="row row-offcanvas row-offcanvas-left">
-                    <Sidebar/>
-                  <Dashboard/>
+                    <div className='col-3'><Sidebar /></div>
+                    <div className='col-9'><Dashboard /></div>
+                    
                
              </div>
             </div>  
