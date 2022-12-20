@@ -84,10 +84,77 @@ function PostJOb({ handleDisplay, sectionHeading }) {
       });
     /////////////////////////////////////////////////////////////////
 
+    makeMathces(postsObj);
+
     //hiding the alert after 2 seconds
-    setTimeout(hideAlert, 2000);
+    setTimeout(hideAlert, 1000);
     /////////////////////////////////////////////////////////////////
-    setTimeout(handleChanges, 2000);
+    setTimeout(handleChanges, 1000);
+  }
+
+  async function makeMathces(postsObj) {
+    console.log("inside the match making function")
+   
+    fetch("http://localhost:5000/userPreference", { "Content-Type": "application/json" })
+      .then((response) => response.json())
+      .then((data) => {
+        for (var i = 0; i < data.length; i++) {
+          if (
+            data[i].role === postsObj.role &&
+            data[i].position === postsObj.position &&
+            data[i].location === postsObj.location
+          ) {
+            console.log("match found = ", i);
+    
+            let rand = Math.random() * 10000;
+            console.log(rand); // say 99.81321410836433
+    
+            rand = Math.floor(rand); // 99
+    
+            var matchObj = {
+              id: rand,
+              post_id:data[i].id,
+              user_name: "user"+data[i].user_id,
+              user_id:data[i].user_id,
+              user_email:"user"+data[i].user_id+"@gmail.com",
+              hr_name:localStorage.getItem('username'),
+              hr_id:localStorage.getItem('hr_id'),
+              hr_email:"hr"+localStorage.getItem('hr_id')+"@gmail.com",
+              role:postsObj.role,
+              position:postsObj.position,
+              location:postsObj.location,
+              user_decision:null,
+              interview_date:"to be decided by HR",
+              user_feedback: "to be given after interview",
+              HR_feedback: "to be given after interview",
+              status:"Active"
+            };
+
+         
+
+        
+    
+            //posting the match in match table
+            fetch("http://localhost:5000/matches", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(matchObj),
+            })
+              .then((response) => response.json())
+              .then((info) => {
+                console.log("Response from server" + info);
+              });
+          }
+        }
+       
+
+        
+      });
+
+      
+    
   }
 
   function handleChanges() {
@@ -186,7 +253,7 @@ function PostJOb({ handleDisplay, sectionHeading }) {
         <button
           id="buttonSubmit"
           className="btn btn-outline-success customSubmit mx-3"
-         onClick={handleChanges}
+          onClick={handleChanges}
         >
           Cancel
         </button>

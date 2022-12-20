@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./UserPreferences.css";
+import "./SetPreferences.css";
 
 function UserPreferences({setSectionPreference,setSectionHeading}) {
   var [preferencesArr, setUserPreference] = useState([]);
@@ -46,7 +46,8 @@ function UserPreferences({setSectionPreference,setSectionHeading}) {
                 setFrontEnd(false);
                 document.getElementById("selectPositionBackend").value =
                   userPreferenceObj.position;
-              } else if (userPreferenceObj.role === "Front End Developer") {
+              } 
+              if (userPreferenceObj.role === "Front End Developer") {
                 setFrontEnd(true);
                 setBackEnd(false);
                 document.getElementById("selectPositionFrontend").value =

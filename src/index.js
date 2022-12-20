@@ -16,7 +16,7 @@ import HrLogin from "./Components/Login/HrLogin";
 import UserSignUp from "./Components/SignUp/UserSignUp";
 import HRSignUp from "./Components/SignUp/HrSignUp";
 
-import UserPreference from "./Components/Dashboard/UserDashboard/ChildComponents/UserPreferences";
+
 import HRDashboard from "./Components/Dashboard/HrDashboard/ParentComponent/HrDashboard";
 import UserDashboard from "./Components/Dashboard/UserDashboard/ParentComponent/UserDashBoard";
 
@@ -37,7 +37,7 @@ root.render(
           path="/UserDashboard"
           element={<UserDashboard></UserDashboard>}
         ></Route>
-        <Route path="/UserProfile" element={<UserPreference></UserPreference>}></Route>
+        
 
         {/* /////////////////////////////////////////////// */}
         {/* HR routes */}

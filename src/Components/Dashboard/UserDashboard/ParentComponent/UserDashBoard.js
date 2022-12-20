@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 import "./UserDashBoard.css";
-import UserPreferences from "../ChildComponents/UserPreferences";
+import SetPreferences from "../ChildComponents/SetPreferences";
+import JobAlerts from "../ChildComponents/JobAlerts";
 
 function UserDashboard() {
   
@@ -96,17 +97,18 @@ function UserDashboard() {
         {/* Condidtional REndering the  */}
         {sectionPreference ? (
           <div>
-            <UserPreferences
-              setSectionHeading={setSectionHeading}
-              setSectionPreference={setSectionPreference}
-            ></UserPreferences>
+
+            <SetPreferences setSectionHeading={setSectionHeading}
+              setSectionPreference={setSectionPreference}></SetPreferences>
+           
           </div>
         ) : null}
 
         {/* Condidtional REndering the  */}
         {sectionJobAlerts ? (
           <div>
-            
+            <JobAlerts setSectionHeading={setSectionHeading}
+              setSectionJobAlerts={setSectionJobAlerts}></JobAlerts>
           </div>
         ) : null}
       </div>
