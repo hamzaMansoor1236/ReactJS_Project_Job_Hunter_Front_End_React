@@ -1,13 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./HrDashboard.css";
 import PostJOb from "../ChildComponets/postJobComponent";
+import ManageJobs from "../ChildComponets/ManageJobs";
 
 function HRDashboard() {
   var navigate = useNavigate();
+
+  useEffect(()=>{
+    abc();
+  },[]);
+
+  function abc(){
+    console.log("Hello World");
+    var present=localStorage.getItem('hr_id')
+    console.log("value of present = ",present)
+    if(present==null)
+    {
+      navigate('/hrlogin')
+    }
+
+  }
+
+ 
+  var [sectionHeading, setSectionHeading] = useState("Please select action ");
   var [postJobSection, setPostJobSection] = useState(false);
   var [manageJobSection, setManageJobSection] = useState(false);
-  var [sectionHeading, setSectionHeading] = useState("Please select action ");
+ 
+
 
   function dealHome() {
     setPostJobSection(true);
@@ -72,9 +92,7 @@ function HRDashboard() {
           ) : null}
 
           {manageJobSection ? (
-           <div>
-            
-            </div>
+           <ManageJobs handleDisplay={setManageJobSection} sectionHeading={setSectionHeading}></ManageJobs>
           ) : null}
         </div>
       </div>

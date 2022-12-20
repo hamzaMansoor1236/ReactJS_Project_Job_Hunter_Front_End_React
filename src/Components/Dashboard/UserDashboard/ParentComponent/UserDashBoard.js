@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 import "./UserDashBoard.css";
 import UserPreferences from "../ChildComponents/UserPreferences";
@@ -22,6 +23,21 @@ function UserDashboard() {
   //variable to hold section heading
   var [sectionJobAlerts, setSectionJobAlerts] = useState(false);
   ///////////////////////////////////////////////////////////////////
+
+  useEffect(()=>{
+    abc();
+  },[]);
+
+  function abc(){
+    console.log("Hello World");
+    var present=localStorage.getItem('id')
+    console.log("value of present = ",present)
+    if(present==null)
+    {
+      navigate('/userlogin')
+    }
+
+  }
 
   //function deals preferences
   function dealPreferencesSection() {
