@@ -18,32 +18,11 @@ function Navbar() {
                         <li className="nav-item active">
                             <a className="nav-link" >Home <span className="sr-only">Home</span></a>
                         </li>
-                        <li className="nav-item">
-                            <a className="nav-link">Link</a>
-                        </li>
                     </ul>
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <a className="nav-link"  data-toggle="collapse">Alert</a>
+                            <a className="nav-link" href="About page" data-target="#myModal" data-toggle="modal">About</a>
                         </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="" data-target="#myModal" data-toggle="modal">About</a>
-                        </li>
-                        <li className="nav-item">
-                  <a className="nav-link waves-effect waves-light text-white">
-                    <i className="fab fa-google-plus-g"></i>
-                  </a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link waves-effect waves-light text-white">
-                        <i className="fas fa-envelope-open-text"></i>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                      <a className="nav-link waves-effect waves-light text-white">
-                          <i className="fas fa-align-justify"></i>
-                      </a>
-                    </li>
                     </ul>
                 </div>
        </nav>
