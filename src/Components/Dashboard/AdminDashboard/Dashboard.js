@@ -1,5 +1,5 @@
 import {useEffect,useState} from 'react';
-
+import { Button } from 'bootstrap';
 
 
 const Dashboard = () => {
@@ -75,6 +75,7 @@ const Dashboard = () => {
         <div className="row ">
        
             <div className="col-lg-7 col-md-6 col-sm-12">
+                <div>
             <button
                 type="submit"
                 className="btn btn-primary px-5 mt-4"
@@ -83,6 +84,8 @@ const Dashboard = () => {
               >
                 Buttton 
               </button>
+              
+              </div>
               <h5 className="mt-3 mb-3 text-secondary">
                Check More Records of Employees
               </h5>
