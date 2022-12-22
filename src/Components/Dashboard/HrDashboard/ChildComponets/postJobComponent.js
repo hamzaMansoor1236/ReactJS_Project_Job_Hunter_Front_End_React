@@ -1,11 +1,7 @@
 import { useState } from "react";
-import { useEffect } from "react";
 // import emailjs from '@emailjs/browser';
 
 function PostJOb({ handleDisplay, sectionHeading }) {
-  //storing the posts
-  var [postsArr, setPostsArr] = useState([]);
-  ///////////////////////////////////////////////////////////////////
 
   //variable to deal alertShow and unshow
   var [isSubmit, setIsSubmit] = useState(false);
@@ -17,38 +13,29 @@ function PostJOb({ handleDisplay, sectionHeading }) {
   }
   ///////////////////////////////////////////////////////////////////
 
-  useEffect(() => {
-    //fetching the data of posts table from database
-    fetch("http://localhost:5000/posts", { "Content-Type": "application/json" })
-      .then((response) => response.json())
-      .then((data) => {
-        setPostsArr(data);
-      });
-    /////////////////////////////////////////////////////////////////
-  }, []);
-
   //function that handles the submit
   function handleSubmit(e) {
     //preventing the form from refreshing
     e.preventDefault();
     /////////////////////////////////////////////////////////////////
+    let rand = Math.random() * 10000;
+    console.log(rand); // say 99.81321410836433
+
+    rand = Math.floor(rand); // 99
 
     //object that stores the post
     var postsObj = {
-      id: "",
+      id: rand,
       hr_id: localStorage.getItem("hr_id"),
       role: document.getElementById("selectRole").value,
       position: document.getElementById("position").value,
       location: document.getElementById("location").value,
       status: "Active",
+      deleted_by_hr:null,
     };
     /////////////////////////////////////////////////////////////////
 
-    //setting the id of the postobj
-    postsObj.id = postsArr.length + 1;
-    /////////////////////////////////////////////////////////////////
-
-    //displaying data in the post
+     //displaying data in the post
     console.log(postsObj);
     /////////////////////////////////////////////////////////////////
 
@@ -75,16 +62,10 @@ function PostJOb({ handleDisplay, sectionHeading }) {
     //Showing the alert
     setIsSubmit(true);
     /////////////////////////////////////////////////////////////////
-
-    //fetching the data of posts table from database
-    fetch("http://localhost:5000/posts", { "Content-Type": "application/json" })
-      .then((response) => response.json())
-      .then((data) => {
-        setPostsArr(data);
-      });
+   
+    //function that matches users to the job post  
+    makeMathces(postsObj,rand);
     /////////////////////////////////////////////////////////////////
-
-    makeMathces(postsObj);
 
     //hiding the alert after 2 seconds
     setTimeout(hideAlert, 1000);
@@ -92,10 +73,12 @@ function PostJOb({ handleDisplay, sectionHeading }) {
     setTimeout(handleChanges, 1000);
   }
 
-  async function makeMathces(postsObj) {
-    console.log("inside the match making function")
-   
-    fetch("http://localhost:5000/userPreference", { "Content-Type": "application/json" })
+  async function makeMathces(postsObj,ID) {
+    console.log("inside the match making function");
+
+    fetch("http://localhost:5000/userPreference", {
+      "Content-Type": "application/json",
+    })
       .then((response) => response.json())
       .then((data) => {
         for (var i = 0; i < data.length; i++) {
@@ -105,35 +88,38 @@ function PostJOb({ handleDisplay, sectionHeading }) {
             data[i].location === postsObj.location
           ) {
             console.log("match found = ", i);
-    
-            let rand = Math.random() * 10000;
-            console.log(rand); // say 99.81321410836433
-    
-            rand = Math.floor(rand); // 99
-    
+
+            let random = Math.random() * 10000;
+            console.log(random); // say 99.81321410836433
+
+            random = Math.floor(random); // 99
+
             var matchObj = {
-              id: rand,
-              post_id:data[i].id,
-              user_name: "user"+data[i].user_id,
-              user_id:data[i].user_id,
-              user_email:"user"+data[i].user_id+"@gmail.com",
-              hr_name:localStorage.getItem('username'),
-              hr_id:localStorage.getItem('hr_id'),
-              hr_email:"hr"+localStorage.getItem('hr_id')+"@gmail.com",
-              role:postsObj.role,
-              position:postsObj.position,
-              location:postsObj.location,
-              user_decision:null,
-              interview_date:"to be decided by HR",
-              user_feedback: "to be given after interview",
-              HR_feedback: "to be given after interview",
-              status:"Active"
+              id: random,
+              post_id: ID,
+              user_name: data[i].user_name,
+              user_id: data[i].user_id,
+              user_email: data[i].user_name+"@gmail.com",
+              hr_name: localStorage.getItem("username"),
+              hr_id: localStorage.getItem("hr_id"),
+              hr_email: localStorage.getItem("username")+"@gmail.com",
+              role: postsObj.role,
+              position: postsObj.position,
+              location: postsObj.location,
+              status_by_hr:true,
+              status_by_user:null,              
+              interview_date: "",
+              interview_status:null,
+              interview_feedback: "to be given after interview",
+              delete_by_user: null,
+              delete_by_hr: null,
+              selection_status: null,
+              completed:null,
+
             };
 
-         
-
-        
-    
+            
+                  console.table(matchObj);  
             //posting the match in match table
             fetch("http://localhost:5000/matches", {
               method: "POST",
@@ -148,13 +134,7 @@ function PostJOb({ handleDisplay, sectionHeading }) {
               });
           }
         }
-       
-
-        
       });
-
-      
-    
   }
 
   function handleChanges() {
@@ -174,7 +154,13 @@ function PostJOb({ handleDisplay, sectionHeading }) {
         </div>
       ) : null}
       {/* ////////////////////////////////////////////// */}
-
+      <button
+          id="buttonSubmit"
+          className="btn btn-outline-success customSubmit mb-2"
+          onClick={handleChanges}
+        >
+          Back
+        </button>
       <form
         onSubmit={(e) => {
           handleSubmit(e);
@@ -250,13 +236,7 @@ function PostJOb({ handleDisplay, sectionHeading }) {
         >
           Submit
         </button>
-        <button
-          id="buttonSubmit"
-          className="btn btn-outline-success customSubmit mx-3"
-          onClick={handleChanges}
-        >
-          Cancel
-        </button>
+       
         {/* ////////////////////////////////////////////// */}
       </form>
     </div>

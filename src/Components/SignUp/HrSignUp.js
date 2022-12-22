@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+//import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function HRSignUp() {
@@ -13,22 +13,26 @@ function HRSignUp() {
 
   //navigating to other page
   const navigate = useNavigate();
-
-  //Useeffect to get id of the last HR in database
-  useEffect(() => {
-    const headers = { "Content-Type": "application/json" };
-    fetch("http://localhost:5000/HR", { headers })
-      .then((response) => response.json())
-      .then((data) => {
-        document.getElementById("id").value =
-          parseInt(data[data.length - 1].id) + 1;
-      });
-  }, []);
-  ////////////////////////////////////////////////////////////////////
+  //commented as no more required
+  // //Useeffect to get id of the last HR in database
+  // useEffect(() => {
+  //   const headers = { "Content-Type": "application/json" };
+  //   fetch("http://localhost:5000/HR", { headers })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       document.getElementById("id").value =
+  //         parseInt(data[data.length - 1].id) + 1;
+  //     });
+  // }, []);
+  // ////////////////////////////////////////////////////////////////////
 
   //function that creates new HR in the database
   function Create() {
-    HR.id = document.getElementById("id").value;
+    let rand = Math.random() * 10000;
+    console.log(rand); // say 99.81321410836433
+
+    rand = Math.floor(rand); // 99
+    HR.id = rand;
     HR.user_name = document.getElementById("naam").value;
     HR.email = document.getElementById("email").value;
     HR.password = document.getElementById("password").value;

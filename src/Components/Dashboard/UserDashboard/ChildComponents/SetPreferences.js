@@ -6,6 +6,7 @@ function UserPreferences({setSectionPreference,setSectionHeading}) {
   var userPreferenceObj = {
     id: "",
     user_id: "",
+    user_name:localStorage.getItem("username"),
     role: "",
     position: "",
     location: "",

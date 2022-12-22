@@ -44,7 +44,7 @@ function HRDashboard() {
     setPostJobSection(false);
     setManageJobSection(false);
     setTrackApplicantsSection(true);
-    setSectionHeading("Manage Job Postings");
+    setSectionHeading("Track Applicants");
   }
 
   return (

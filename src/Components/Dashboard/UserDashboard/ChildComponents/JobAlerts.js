@@ -26,8 +26,8 @@ function JobAlerts({ setSectionJobAlerts, setSectionHeading }) {
 
   //function that deals the deletion of the job request
   function dealReject(e) {
-    let a = e.currentTarget.parentNode.parentNode.getAttribute("data-key");
-    console.log(a);
+    let a = e.currentTarget.parentNode.parentNode.parentNode.getAttribute("data-key");
+    console.log("value of a = ",a);
     fetch("http://localhost:5000/matches/" + a, {
       method: "DELETE",
     }).then((res) => {
@@ -80,8 +80,8 @@ function JobAlerts({ setSectionJobAlerts, setSectionHeading }) {
                 <th>Position</th>
                 <th>Location</th>
                 <th>Status</th>
-                <th>HR email</th>
-                <th>Apply</th>
+                <th>Organization</th>
+                <th>Decision</th>
                 <th>Reject</th>
                 <th>interview_date</th>
                 <th>feedback</th>
@@ -133,6 +133,13 @@ function JobAlerts({ setSectionJobAlerts, setSectionHeading }) {
                       ) : (
                         null
                       )}
+                        {(element.user_decision === false && element.status==="Active")  ? (
+                       <p className="text-success">
+                       <b className="text-danger">You rejected the offer</b>
+                     </p>
+                      ) : (
+                        null
+                      )}
                     </td>
                     <td>
                       {(element.user_decision === null && element.status==="Active") ? (
@@ -157,6 +164,21 @@ function JobAlerts({ setSectionJobAlerts, setSectionHeading }) {
                           Remove
                         </button>
                       ) : null}
+                      {(element.user_decision === false && element.status==="Active")  ? (
+                       <p className="text-success">
+                        <button
+                          id="buttonSubmit"
+                          className="btn btn-outline-danger "
+                          onClick={(e) => {
+                            dealReject(e);
+                          }}
+                        >
+                          Delete
+                        </button>
+                     </p>
+                      ) : (
+                        null
+                      )}
                      
                     </td>
                     <td>{element.interview_date}</td>
