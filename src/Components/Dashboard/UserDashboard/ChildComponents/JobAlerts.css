@@ -1,0 +1,12 @@
+/* CArd styling */
+.style{
+    width: 18rem;
+    float:left;
+    height:25rem;
+    margin-top: 2rem;
+}
+
+.spacing{
+    display: flex-inline; 
+    justify-content: space-between; 
+}
