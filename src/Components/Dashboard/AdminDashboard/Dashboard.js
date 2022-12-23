@@ -16,7 +16,7 @@ const Dashboard = () => {
    useEffect(() => {
       getData();
    },)
-   
+
 
     return (
     <div className="col main pt-5 mt-3">

@@ -146,14 +146,14 @@ function AdminSignUp() {
             />
           </div>
           <div className="col-12 text-sm-center text-lg-start text-md-start text-center">
-            <button
-              type="submit"
-              className="btn btn-Primery px-5 mt-2"
-              onClick={submit}
-              id="btn"
-            >
-              Sign Up
-            </button>
+          <button
+                type="submit"
+                className="btn btn-primary px-5 mt-4"
+                onClick={submit}
+                id="btn" 
+              >
+                Signup
+              </button>
           </div>
         </form>
       </div>
