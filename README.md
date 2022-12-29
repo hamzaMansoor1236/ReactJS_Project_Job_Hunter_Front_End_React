@@ -1,3 +1,7 @@
+ReactJs application that is a Job hunting portal solely based on the user preferences. The user feeds the preferences and recived notification that best match his/her prefrences( location experience skills etc)
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
